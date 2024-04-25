@@ -9,3 +9,5 @@ Based on: https://github.com/ferion11/PyCharm_Appimage
 
 ---
 https://www.jetbrains.com/pycharm/download
+
+https://www.jetbrains.com/pycharm/download/other.html
