@@ -35,13 +35,12 @@ jobs:
         P_NAME="$(echo "PyCharm-community")"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
-        WORKDIR="workdir"
 
-        mkdir "$WORKDIR"
+        mkdir work_dir/
         wget -nv $P_URL
-        tar xf $P_FILENAME -C "$WORKDIR/"
+        tar xf $P_FILENAME -C work_dir/
 
-        cat > "$WORKDIR/AppRun" << EOF
+        cat > work_dir/AppRun << EOF
         #!/bin/bash
         HERE="\$(dirname "\$(readlink -f "\${0}")")"
         #------------------------------
@@ -52,9 +51,9 @@ jobs:
         "\$MAIN" "\$@" | cat
 
         EOF
-        chmod +x $WORKDIR/AppRun
+        chmod +x work_dir/AppRun
 
-        cat > "$WORKDIR/PyCharm.desktop" << EOF
+        cat > work_dir/PyCharm.desktop << EOF
         [Desktop Entry]
         Version=1.0
         Type=Application
@@ -69,17 +68,19 @@ jobs:
         EOF
 
         pwd; ls -lah
-        ls -lah $WORKDIR
-        #cp resource/pycharm.png "$WORKDIR"
-        ls "$WORKDIR/bin/"
-        cp "$WORKDIR/bin/pycharm.png" "$WORKDIR"
+        ls -lah work_dir/
+        ls -lah work_dir/pycharm-community*/
+        ls -lah work_dir/pycharm-community*/bin/*
+        #cp resource/pycharm.png work_dir/
+        ls work_dir/bin/
+        cp work_dir/bin/pycharm.png work_dir/
 
-        mv README.md $WORKDIR
+        mv README.md work_dir/
 
         pwd; ls -lah
-        ls -lah $WORKDIR
+        ls -lah work_dir/
 
-        export ARCH=x86_64; ./appimagetool.AppImage -v $WORKDIR $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
+        export ARCH=x86_64; ./appimagetool.AppImage -v work_dir/ $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
 
         md5sum $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage.md5
         pwd; ls -lah
