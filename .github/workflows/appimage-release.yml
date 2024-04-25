@@ -80,7 +80,7 @@ jobs:
         cp resource/pycharm.png $WORKDIR      
         mv README.md $WORKDIR
 
-        ARCH=x86_64 ./appimagetool.AppImage -v $WORKDIR $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
+        export ARCH=x86_64; ./appimagetool.AppImage -v $WORKDIR $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
         md5sum $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage.md5
 
         #rm -rf appimagetool.AppImage
