@@ -20,7 +20,7 @@ jobs:
     - name: Get appimagetool
       run: |
         set -x
-        wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
+        wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O appimagetool.AppImage
         chmod +x appimagetool.AppImage
         pwd; ls -lah
 
@@ -40,10 +40,6 @@ jobs:
         mkdir "$WORKDIR"
         wget -nv $P_URL
         tar xf $P_FILENAME -C "$WORKDIR/"
-
-        # AppImage
-        #wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
-        #chmod +x appimagetool.AppImage
 
         cat > "$WORKDIR/AppRun" << EOF
         #!/bin/bash
@@ -72,7 +68,9 @@ jobs:
 
         EOF
 
-        cp resource/pycharm.png $WORKDIR      
+        #cp resource/pycharm.png $WORKDIR
+        cp $WORKDIR/bin/pycharm.png $WORKDIR
+
         mv README.md $WORKDIR
 
         pwd; ls -lah
