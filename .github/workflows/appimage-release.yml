@@ -17,6 +17,13 @@ jobs:
     - name: Install fuse and libfuse2
       run: sudo apt install fuse libfuse2
 
+    - name: Get appimagetool
+      run: |
+        set -x
+        wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
+        chmod +x appimagetool.AppImage
+        pwd; ls -lah
+
     - name: Make Appimage
       shell: bash
       run: |
@@ -30,20 +37,13 @@ jobs:
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
         WORKDIR="workdir"
 
-        die() { echo >&2 "$*"; exit 1; };
-
         mkdir "$WORKDIR"
-
         wget -nv $P_URL
         tar xf $P_FILENAME -C "$WORKDIR/"
 
-        cd "$WORKDIR" || die "ERROR: Directory don't exist: $WORKDIR"
-
         # AppImage
-        cd ..
-
-        wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
-        chmod +x appimagetool.AppImage
+        #wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
+        #chmod +x appimagetool.AppImage
 
         cat > "$WORKDIR/AppRun" << EOF
         #!/bin/bash
@@ -56,9 +56,7 @@ jobs:
         "\$MAIN" "\$@" | cat
 
         EOF
-
         chmod +x $WORKDIR/AppRun
-        #cp AppRun $WORKDIR
 
         cat > "$WORKDIR/PyCharm.desktop" << EOF
         [Desktop Entry]
@@ -73,17 +71,16 @@ jobs:
         StartupWMClass=jetbrains-pycharm-ce
 
         EOF
-        #cp PyCharm.desktop $WORKDIR
 
-        pwd; ls -lah
-        ls -lah $WORKDIR
         cp resource/pycharm.png $WORKDIR      
         mv README.md $WORKDIR
 
-        export ARCH=x86_64; ./appimagetool.AppImage -v $WORKDIR $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
-        md5sum $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage.md5
+        pwd; ls -lah
+        ls -lah $WORKDIR
 
-        #rm -rf appimagetool.AppImage
+        export ARCH=x86_64; ./appimagetool.AppImage -v $WORKDIR $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
+
+        md5sum $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage.md5
         pwd; ls -lah
 
 # Build - Errror: Resource not accessible by integration
