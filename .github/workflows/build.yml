@@ -68,6 +68,8 @@ jobs:
 
         EOF
 
+        pwd; ls -lah
+        ls -lah $WORKDIR
         #cp resource/pycharm.png "$WORKDIR"
         ls "$WORKDIR/bin/"
         cp "$WORKDIR/bin/pycharm.png" "$WORKDIR"
