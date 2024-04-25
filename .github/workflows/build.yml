@@ -69,11 +69,11 @@ jobs:
 
         pwd; ls -lah
         ls -lah work_dir/
-        ls -lah work_dir/pycharm-community*/
-        ls -lah work_dir/pycharm-community*/bin/*
+        ls -lah work_dir/pycharm-community-*/
+        ls -lah work_dir/pycharm-community-*/bin/*
         #cp resource/pycharm.png work_dir/
-        ls work_dir/bin/
-        cp work_dir/bin/pycharm.png work_dir/
+        #ls work_dir/bin/
+        cp work_dir/pycharm-community-*/bin/pycharm.png work_dir/
 
         mv README.md work_dir/
 
