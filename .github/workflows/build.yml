@@ -29,9 +29,7 @@ jobs:
       run: |
         set -x
 
-        P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-2021.1.2.tar.gz"
-        #P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-2024.1.tar.gz"
-
+        P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-2023.3.5.tar.gz"
         P_NAME="$(echo "PyCharm-community")"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
