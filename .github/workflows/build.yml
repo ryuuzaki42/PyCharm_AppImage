@@ -74,9 +74,9 @@ jobs:
         pwd; ls -lah
         ls -lah work_dir/
 
-        export ARCH=x86_64; ./appimagetool.AppImage -v work_dir/ $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage
+        export ARCH=x86_64; ./appimagetool.AppImage -v work_dir/ $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage
 
-        md5sum $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-v${P_VERSION}-${ARCH}-1_JB.AppImage.md5
+        md5sum $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage.md5
         pwd; ls -lah
 
     # https://github.com/marketplace/actions/upload-to-github-release
