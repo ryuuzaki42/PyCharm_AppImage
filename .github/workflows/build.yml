@@ -28,8 +28,8 @@ jobs:
       shell: bash
       run: |
         set -x
-
-        P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-2024.1.tar.gz"
+        version="2024.1.1"
+        P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
         P_NAME="$(echo "PyCharm-community")"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
