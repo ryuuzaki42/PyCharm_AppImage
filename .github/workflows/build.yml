@@ -55,7 +55,7 @@ jobs:
         [Desktop Entry]
         Version=1.0
         Type=Application
-        Name=PyCharm-Community-Edition
+        Name=PyCharm-community-edition
         Icon=pycharm
         Exec=AppRun
         Comment=Python IDE for Professional Developers
