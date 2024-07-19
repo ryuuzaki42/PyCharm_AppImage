@@ -73,7 +73,8 @@ jobs:
         pwd; ls -lah
         ls -lah work_dir/
 
-        ARCH=x86_64 ./appimagetool-x86_64.AppImage work_dir/ $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage
+        ARCH=x86_64 ./appimagetool-x86_64.AppImage work_dir/
+        #$P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage
         pwd; ls -lah
 
         md5sum $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage.md5
