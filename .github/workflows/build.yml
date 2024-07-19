@@ -20,8 +20,9 @@ jobs:
     - name: Get appimagetool
       run: |
         set -x
-        wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O appimagetool.AppImage
-        chmod +x appimagetool.AppImage
+        #wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool-x86_64.AppImage
+        wget -q https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-840-x86_64.AppImage -O appimagetool-x86_64.AppImage
+        chmod +x appimagetool-x86_64.AppImage
         pwd; ls -lah
 
     - name: Make Appimage
@@ -72,7 +73,7 @@ jobs:
         pwd; ls -lah
         ls -lah work_dir/
 
-        export ARCH=x86_64; ./appimagetool.AppImage -v work_dir/ $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage
+        export ARCH=x86_64; ./appimagetool-x86_64.AppImage -v work_dir/ $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage
 
         md5sum $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage.md5
         pwd; ls -lah
