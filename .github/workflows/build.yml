@@ -85,7 +85,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-          file: "PyCharm*.AppImage; PyCharm*.zsync, PyCharm*.AppImage.md5"
+          file: "PyCharm*.AppImage; PyCharm*.zsync; PyCharm*.md5"
           #delete_file: "random-name-*.txt;random-*.txt"
           release_id: ${{ steps.create_release.outputs.id }}
           #overwrite: true
