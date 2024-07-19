@@ -29,7 +29,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        version="2024.1.2"
+        version="2024.1.4"
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
         P_NAME="$(echo "PyCharm-community")"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
