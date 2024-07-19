@@ -1,5 +1,5 @@
 
-# PyCharm-community-edition_Appimage
+# PyCharm-community-edition_AppImage
 https://www.jetbrains.com/pycharm/
 
 ## Repository: https://github.com/ryuuzaki42/PyCharm-community-edition_AppImage
