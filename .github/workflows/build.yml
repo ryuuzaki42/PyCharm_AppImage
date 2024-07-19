@@ -31,7 +31,6 @@ jobs:
         set -x
         version="2024.1.4"
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
-        P_NAME="$(echo "PyCharm-community")"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
 
@@ -73,11 +72,12 @@ jobs:
         pwd; ls -lah
         ls -lah work_dir/
 
-        ARCH=x86_64 ./appimagetool-x86_64.AppImage work_dir/
-        #$P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage
-        pwd; ls -lah
+        ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage work_dir/
 
-        md5sum $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage > $P_NAME-${P_VERSION}-${ARCH}-1_JB.AppImage.md5
+        fileName=$(ls PyCharm*.AppImage)
+        echo "fileName: $fileName"
+        md5sum "$fileName" > "${fileName}.md5"
+        pwd; ls -lah
         pwd; ls -lah
 
     # https://github.com/marketplace/actions/upload-to-github-release
@@ -85,7 +85,7 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-          file: "PyCharm*.AppImage; PyCharm*.AppImage.md5"
+          file: "PyCharm*.AppImage; PyCharm*.zsync, PyCharm*.AppImage.md5"
           #delete_file: "random-name-*.txt;random-*.txt"
           release_id: ${{ steps.create_release.outputs.id }}
           #overwrite: true
