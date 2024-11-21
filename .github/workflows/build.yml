@@ -34,7 +34,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        version="2024.2.3"
+        version="2024.3"
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
