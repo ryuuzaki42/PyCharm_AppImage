@@ -50,7 +50,8 @@ jobs:
         HERE="\$(dirname "\$(readlink -f "\${0}")")"
         #------------------------------
 
-        MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm.sh"
+        #MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm.sh"
+        MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm"
 
         export PATH="\$HERE/pycharm-community-${P_VERSION}/bin":\$PATH
         "\$MAIN" "\$@" | cat
