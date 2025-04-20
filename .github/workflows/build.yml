@@ -34,7 +34,7 @@ jobs:
       shell: bash
       run: |
         set -x
-        version=$(grep -o "Opera:.*" README.md | cut -d ' ' -f2)
+        version=$(grep -o "PyCharm-community-edition:.*" README.md | cut -d ' ' -f2)
         echo "PyCharm-community-edition version: $version"
 
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
