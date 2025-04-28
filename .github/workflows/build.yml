@@ -17,6 +17,9 @@ jobs:
     - name: Install fuse and libfuse2
       run: sudo apt install fuse libfuse2
 
+    - name: Install llvm - URUNTIME
+      run: sudo apt install llvm
+
     #- name: Get appimagetool
     #  run: |
     #    set -x
