@@ -30,11 +30,12 @@ jobs:
         chmod +x appimagetool-x86_64.AppImage
         pwd; ls -lah
 
-    - name: Get Appimage
+    - name: Get URUNTIME
       shell: bash
       run: |
         set -x
-        wget https://github.com/VHSgunzo/uruntime/releases/download/v0.3.9/uruntime-appimage-dwarfs-x86_64 -O uruntime
+        wget https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-x86_64 -O uruntime
+        chmod +x ./uruntime
         pwd; ls -lah
 
     - name: Make Appimage
