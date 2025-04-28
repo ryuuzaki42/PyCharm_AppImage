@@ -17,18 +17,18 @@ jobs:
     - name: Install fuse and libfuse2
       run: sudo apt install fuse libfuse2
 
-    - name: Get appimagetool
-      run: |
-        set -x
-        #wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool-x86_64.AppImage
-        #wget -q https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-840-x86_64.AppImage -O appimagetool-x86_64.AppImage
+    #- name: Get appimagetool
+    #  run: |
+    #    set -x
+    #    #wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool-x86_64.AppImage
+    #    #wget -q https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-840-x86_64.AppImage -O appimagetool-x86_64.AppImage
 
-        version_go_appimage=$(wget -q -O - https://api.github.com/repos/probonopd/go-appimage/releases | grep "\"name.*appimagetool-.*-x86_64.AppImage\"" | head -n 1 | cut -d '-' -f2)
-        echo "version_go_appimage: $version_go_appimage"
+    #    version_go_appimage=$(wget -q -O - https://api.github.com/repos/probonopd/go-appimage/releases | grep "\"name.*appimagetool-.*-x86_64.AppImage\"" | head -n 1 | cut -d '-' -f2)
+    #    echo "version_go_appimage: $version_go_appimage"
 
-        wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
-        chmod +x appimagetool-x86_64.AppImage
-        pwd; ls -lah
+    #    wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
+    #    chmod +x appimagetool-x86_64.AppImage
+    #    pwd; ls -lah
 
     - name: Get URUNTIME
       shell: bash
@@ -97,6 +97,9 @@ jobs:
             --compression zstd:level=22 -S26 -B8 \
             --header uruntime \
             -i ./work_dir -o PyCharm-community-edition-${version}-1_JB-x86_64.AppImage 
+
+        echo "Generating zsync file..."
+        zsyncmake *.AppImage -u *.AppImage
 
         fileName=$(ls PyCharm*.AppImage)
         echo "fileName: $fileName"
