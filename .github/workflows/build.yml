@@ -91,11 +91,11 @@ jobs:
 
         echo "Generating AppImage..."
         ./uruntime --appimage-mkdwarfs -f \
-	        --set-owner 0 --set-group 0 \
-                --no-history --no-create-timestamp \
-	        --compression zstd:level=22 -S26 -B8 \
-	        --header uruntime \
-	        -i ./AppDir -o Dolphin_Emulator-"$VERSION"-anylinux.dwarfs-"$ARCH".AppImage
+            --set-owner 0 --set-group 0 \
+            --no-history --no-create-timestamp \
+            --compression zstd:level=22 -S26 -B8 \
+            --header uruntime \
+            -i ./work_dir -o PyCharm-community-edition-${version}-1_JB-x86_64.AppImage 
 
         fileName=$(ls PyCharm*.AppImage)
         echo "fileName: $fileName"
