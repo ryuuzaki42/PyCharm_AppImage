@@ -30,6 +30,13 @@ jobs:
         chmod +x appimagetool-x86_64.AppImage
         pwd; ls -lah
 
+    - name: Get Appimage
+      shell: bash
+      run: |
+        set -x
+        wget https://github.com/VHSgunzo/uruntime/releases/download/v0.3.9/uruntime-appimage-dwarfs-x86_64 -O uruntime
+        pwd; ls -lah
+
     - name: Make Appimage
       shell: bash
       run: |
@@ -80,7 +87,15 @@ jobs:
         pwd; ls -lah
         ls -lah work_dir/
 
-        ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage work_dir/
+        #ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage work_dir/
+
+        echo "Generating AppImage..."
+        ./uruntime --appimage-mkdwarfs -f \
+	        --set-owner 0 --set-group 0 \
+                --no-history --no-create-timestamp \
+	        --compression zstd:level=22 -S26 -B8 \
+	        --header uruntime \
+	        -i ./AppDir -o Dolphin_Emulator-"$VERSION"-anylinux.dwarfs-"$ARCH".AppImage
 
         fileName=$(ls PyCharm*.AppImage)
         echo "fileName: $fileName"
