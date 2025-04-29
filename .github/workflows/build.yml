@@ -89,7 +89,9 @@ jobs:
 
         ls -lah work_dir/pycharm-community-*/bin/*
         cp work_dir/pycharm-community-*/bin/pycharm.png work_dir/
-        mv README.md work_dir/
+
+        #mv README.md work_dir/
+        cp README.md work_dir/
 
         pwd; ls -lah
         ls -lah work_dir/
@@ -168,7 +170,9 @@ jobs:
 
         ls -lah work_dir/pycharm-*/bin/*
         cp work_dir/pycharm-*/bin/pycharm.png work_dir/
-        mv README.md work_dir/
+
+        #mv README.md work_dir/
+        cp README.md work_dir/
 
         pwd; ls -lah
         ls -lah work_dir/
