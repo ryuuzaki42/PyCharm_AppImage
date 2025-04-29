@@ -1,0 +1,136 @@
+name: appimage-release
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "!**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install fuse and libfuse2
+      run: sudo apt install fuse libfuse2
+
+    - name: Install llvm - URUNTIME
+      run: sudo apt install llvm
+
+    #- name: Get appimagetool
+    #  run: |
+    #    set -x
+    #    #wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool-x86_64.AppImage
+    #    #wget -q https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-840-x86_64.AppImage -O appimagetool-x86_64.AppImage
+
+    #    version_go_appimage=$(wget -q -O - https://api.github.com/repos/probonopd/go-appimage/releases | grep "\"name.*appimagetool-.*-x86_64.AppImage\"" | head -n 1 | cut -d '-' -f2)
+    #    echo "version_go_appimage: $version_go_appimage"
+
+    #    wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
+    #    chmod +x appimagetool-x86_64.AppImage
+    #    pwd; ls -lah
+
+    - name: Get URUNTIME
+      shell: bash
+      run: |
+        set -x
+        wget https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-x86_64 -O uruntime
+        chmod +x ./uruntime
+        pwd; ls -lah
+
+    - name: Make Appimage
+      shell: bash
+      run: |
+        set -x
+        version=$(grep -o "PyCharm-community-edition:.*" README.md | cut -d ' ' -f2)
+        echo "PyCharm-community-edition version: $version"
+
+        tag_version=2
+        name_prog="PyCharm-community-edition-${version}-${tag_version}_JB-x86_64.AppImage"
+
+        P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
+        P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
+        P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
+
+        mkdir work_dir/
+        wget -nv $P_URL
+        tar xf $P_FILENAME -C work_dir/
+
+        cat > work_dir/AppRun << EOF
+        #!/bin/bash
+        HERE="\$(dirname "\$(readlink -f "\${0}")")"
+        #------------------------------
+
+        #MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm.sh"
+        MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm"
+
+        export PATH="\$HERE/pycharm-community-${P_VERSION}/bin":\$PATH
+        "\$MAIN" "\$@" | cat
+
+        EOF
+        chmod +x work_dir/AppRun
+
+        cat > work_dir/PyCharm.desktop << EOF
+        [Desktop Entry]
+        Version=1.0
+        Type=Application
+        Name=PyCharm-community-edition
+        Icon=pycharm
+        Exec=AppRun
+        Comment=Python IDE for Professional Developers
+        Categories=Development;IDE;
+        Terminal=false
+        StartupWMClass=jetbrains-pycharm-ce
+
+        EOF
+
+        ls -lah work_dir/pycharm-community-*/bin/*
+        cp work_dir/pycharm-community-*/bin/pycharm.png work_dir/
+        mv README.md work_dir/
+
+        pwd; ls -lah
+        ls -lah work_dir/
+
+        #ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage work_dir/
+
+        # Add udpate info to runtime
+        UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*dwarfs-$ARCH.AppImage.zsync"
+        echo "Adding update information \"$UPINFO\" to runtime..."
+        printf "$UPINFO" > data.upd_info
+        llvm-objcopy --update-section=.upd_info=data.upd_info \
+            --set-section-flags=.upd_info=noload,readonly ./uruntime
+        printf 'AI\x02' | dd of=./uruntime bs=1 count=3 seek=8 conv=notrunc
+
+        echo "Generating AppImage..."
+        ./uruntime --appimage-mkdwarfs -f \
+            --set-owner 0 --set-group 0 \
+            --no-history --no-create-timestamp \
+            --compression zstd:level=22 -S26 -B8 \
+            --header uruntime \
+            -i ./work_dir -o $name_prog
+
+        echo "Generating zsync file..."
+        zsyncmake *.AppImage -u *.AppImage
+
+        fileName=$(ls PyCharm*.AppImage)
+        echo "fileName: $fileName"
+        md5sum "$fileName" > "${fileName}.md5"
+        pwd; ls -lah
+        pwd; ls -lah
+
+    # https://github.com/marketplace/actions/upload-to-github-release
+    - uses: xresloader/upload-to-github-release@main
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          file: "PyCharm*.AppImage; PyCharm*.zsync; PyCharm*.md5"
+          #delete_file: "random-name-*.txt;random-*.txt"
+          release_id: ${{ steps.create_release.outputs.id }}
+          #overwrite: true
+          verbose: true
+          #tags: true
+          draft: false
+          default_release_name: "PyCharm-community V in AppImage"
