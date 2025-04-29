@@ -140,7 +140,8 @@ jobs:
 
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-$version.tar.gz"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
-        P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
+        #P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
+        P_VERSION="$(echo $P_FILENAME | cut -d- -f2 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
 
         mkdir work_dir/
         wget -nv $P_URL
