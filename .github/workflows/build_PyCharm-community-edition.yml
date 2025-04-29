@@ -41,14 +41,14 @@ jobs:
         chmod +x ./uruntime
         pwd; ls -lah
 
-    - name: Make Appimage
+    - name: Make AppImage PyCharm-community-edition
       shell: bash
       run: |
         set -x
         version=$(grep -o "PyCharm-community-edition:.*" README.md | cut -d ' ' -f2)
         echo "PyCharm-community-edition version: $version"
 
-        tag_version=2
+        tag_version=3
         name_prog="PyCharm-community-edition-${version}-${tag_version}_JB-x86_64.AppImage"
 
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"

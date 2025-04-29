@@ -41,14 +41,14 @@ jobs:
         chmod +x ./uruntime
         pwd; ls -lah
 
-    - name: Make Appimage
+    - name: Make AppImage PyCharm
       shell: bash
       run: |
         set -x
         version=$(grep -o "PyCharm:.*" README.md | cut -d ' ' -f2)
         echo "PyCharm version: $version"
 
-        tag_version=2
+        tag_version=3
         name_prog="PyCharm-${version}-${tag_version}_JB-x86_64.AppImage"
 
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-$version.tar.gz"
