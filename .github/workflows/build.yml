@@ -121,7 +121,7 @@ jobs:
         #echo "fileName: $fileName"
         #md5sum "$fileName" > "${fileName}.md5"
 
-        md5sum "$name_prog" > "${$name_prog}.md5"
+        md5sum "$name_prog" > "${name_prog}.md5"
         pwd; ls -lah
 
     - name: Make AppImage PyCharm
@@ -208,7 +208,7 @@ jobs:
         #echo "fileName: $fileName"
         #md5sum "$fileName" > "${fileName}.md5"
 
-        md5sum "$name_prog" > "${$name_prog}.md5"
+        md5sum "$name_prog" > "${name_prog}.md5"
         pwd; ls -lah
 
     # https://github.com/marketplace/actions/upload-to-github-release
