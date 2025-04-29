@@ -115,7 +115,8 @@ jobs:
             -i ./work_dir -o $name_prog
 
         echo "Generating zsync file..."
-        zsyncmake *.AppImage -u *.AppImage
+        #zsyncmake *.AppImage -u *.AppImage
+        zsyncmake "$name_prog" -u "$name_prog"
 
         #fileName=$(ls PyCharm-community-edition*.AppImage)
         #echo "fileName: $fileName"
@@ -203,7 +204,8 @@ jobs:
             -i ./work_dir -o $name_prog
 
         echo "Generating zsync file..."
-        zsyncmake *.AppImage -u *.AppImage
+        #zsyncmake *.AppImage -u *.AppImage
+        zsyncmake "$name_prog" -u "$name_prog"
 
         #fileName=$(ls PyCharm*.AppImage)
         #echo "fileName: $fileName"
