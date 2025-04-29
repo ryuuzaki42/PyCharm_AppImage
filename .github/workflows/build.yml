@@ -126,6 +126,10 @@ jobs:
       shell: bash
       run: |
         set -x
+
+        # From "old" work_dir/ PyCharm-community-edition
+        mv work_dir/ work_dir_2/
+
         version=$(grep -o "PyCharm:.*" README.md | cut -d ' ' -f2)
         echo "PyCharm version: $version"
 
