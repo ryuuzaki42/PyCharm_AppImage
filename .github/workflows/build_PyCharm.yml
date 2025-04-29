@@ -45,13 +45,13 @@ jobs:
       shell: bash
       run: |
         set -x
-        version=$(grep -o "PyCharm-community-edition:.*" README.md | cut -d ' ' -f2)
-        echo "PyCharm-community-edition version: $version"
+        version=$(grep -o "PyCharm:.*" README.md | cut -d ' ' -f2)
+        echo "PyCharm version: $version"
 
         tag_version=2
-        name_prog="PyCharm-community-edition-${version}-${tag_version}_JB-x86_64.AppImage"
+        name_prog="PyCharm-${version}-${tag_version}_JB-x86_64.AppImage"
 
-        P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
+        P_URL="https://download-cdn.jetbrains.com/python/pycharm-$version.tar.gz"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
         P_VERSION="$(echo $P_FILENAME | cut -d- -f3 | sed 's/\.[^.]*$//' | sed 's/\.[^.]*$//')"
 
@@ -64,10 +64,10 @@ jobs:
         HERE="\$(dirname "\$(readlink -f "\${0}")")"
         #------------------------------
 
-        #MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm.sh"
-        MAIN="\$HERE/pycharm-community-${P_VERSION}/bin/pycharm"
+        #MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
+        MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm"
 
-        export PATH="\$HERE/pycharm-community-${P_VERSION}/bin":\$PATH
+        export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
         "\$MAIN" "\$@" | cat
 
         EOF
@@ -77,7 +77,7 @@ jobs:
         [Desktop Entry]
         Version=1.0
         Type=Application
-        Name=PyCharm-community-edition
+        Name=PyCharm
         Icon=pycharm
         Exec=AppRun
         Comment=Python IDE for Professional Developers
@@ -87,8 +87,8 @@ jobs:
 
         EOF
 
-        ls -lah work_dir/pycharm-community-*/bin/*
-        cp work_dir/pycharm-community-*/bin/pycharm.png work_dir/
+        ls -lah work_dir/pycharm-*/bin/*
+        cp work_dir/pycharm-*/bin/pycharm.png work_dir/
         mv README.md work_dir/
 
         pwd; ls -lah
@@ -133,4 +133,4 @@ jobs:
           verbose: true
           #tags: true
           draft: false
-          default_release_name: "PyCharm-community V in AppImage"
+          default_release_name: "PyCharm V in AppImage"
