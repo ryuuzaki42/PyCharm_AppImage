@@ -119,7 +119,6 @@ jobs:
         echo "fileName: $fileName"
         md5sum "$fileName" > "${fileName}.md5"
         pwd; ls -lah
-        pwd; ls -lah
 
     - name: Make AppImage PyCharm
       shell: bash
@@ -198,7 +197,6 @@ jobs:
         fileName=$(ls PyCharm*.AppImage)
         echo "fileName: $fileName"
         md5sum "$fileName" > "${fileName}.md5"
-        pwd; ls -lah
         pwd; ls -lah
 
     # https://github.com/marketplace/actions/upload-to-github-release
