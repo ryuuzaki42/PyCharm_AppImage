@@ -48,7 +48,7 @@ jobs:
         version=$(grep -o "PyCharm-community-edition:.*" README.md | cut -d ' ' -f2)
         echo "PyCharm-community-edition version: $version"
 
-        tag_version=3
+        tag_version=1
         name_prog="PyCharm-community-edition-${version}-${tag_version}_JB-x86_64.AppImage"
 
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-community-$version.tar.gz"
