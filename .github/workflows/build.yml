@@ -159,7 +159,6 @@ jobs:
 
         export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
         "\$MAIN" "\$@" | cat
-
         EOF
         chmod +x work_dir/AppRun
 
@@ -174,7 +173,6 @@ jobs:
         Categories=Development;IDE;
         Terminal=false
         StartupWMClass=jetbrains-pycharm-ce
-
         EOF
 
         ls -lah work_dir/pycharm-*/bin/*
