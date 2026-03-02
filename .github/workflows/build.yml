@@ -64,14 +64,16 @@ jobs:
         wget -nv $P_URL
         tar xf $P_FILENAME -C work_dir/
 
-        echo '#!/bin/bash
-        HERE="$(dirname "$(readlink -f "${0}")")"
+        cat > work_dir/AppRun << EOF
+        #!/bin/bash
+        HERE="\$(dirname "\$(readlink -f "\${0}")")"
 
-        #MAIN="$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
-        MAIN="$HERE/pycharm-${P_VERSION}/bin/pycharm"
+        #MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
+        MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm"
 
-        export PATH="$HERE/pycharm-${P_VERSION}/bin":$PATH
-        "$MAIN" "$@" | cat' > work_dir/AppRun
+        export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
+        "\$MAIN" "\$@" | cat
+        EOF
         chmod +x work_dir/AppRun
 
         echo '[Desktop Entry]
