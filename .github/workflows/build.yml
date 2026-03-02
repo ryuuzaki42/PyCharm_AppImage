@@ -149,8 +149,7 @@ jobs:
         wget -nv $P_URL
         tar xf $P_FILENAME -C work_dir/
 
-        cat > work_dir/AppRun << EOF
-        #!/bin/bash
+        echo '#!/bin/bash
         HERE="\$(dirname "\$(readlink -f "\${0}")")"
         #------------------------------
 
@@ -159,11 +158,10 @@ jobs:
 
         export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
         "\$MAIN" "\$@" | cat
-        EOF
+        '> work_dir/AppRun
         chmod +x work_dir/AppRun
 
-        cat > work_dir/PyCharm.desktop << EOF
-        [Desktop Entry]
+        echo '[Desktop Entry]
         Version=1.0
         Type=Application
         Name=PyCharm
@@ -173,7 +171,7 @@ jobs:
         Categories=Development;IDE;
         Terminal=false
         StartupWMClass=jetbrains-pycharm-ce
-        EOF
+        '> work_dir/PyCharm.desktop
 
         ls -lah work_dir/pycharm-*/bin/*
         cp work_dir/pycharm-*/bin/pycharm.png work_dir/
