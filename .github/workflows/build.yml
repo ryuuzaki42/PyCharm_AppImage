@@ -66,7 +66,6 @@ jobs:
 
         echo '#!/bin/bash
         HERE="\$(dirname "\$(readlink -f "\${0}")")"
-        #------------------------------
 
         #MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
         MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm"
@@ -91,9 +90,7 @@ jobs:
         ls -lah work_dir/pycharm-*/bin/*
         cp work_dir/pycharm-*/bin/pycharm.png work_dir/
 
-        #mv README.md work_dir/
         cp README.md work_dir/
-
         pwd; ls -lah
         ls -lah work_dir/
 
@@ -118,10 +115,6 @@ jobs:
         echo "Generating zsync file..."
         #zsyncmake *.AppImage -u *.AppImage
         zsyncmake "$name_prog" -u "$name_prog"
-
-        #fileName=$(ls PyCharm*.AppImage)
-        #echo "fileName: $fileName"
-        #md5sum "$fileName" > "${fileName}.md5"
 
         md5sum "$name_prog" > "${name_prog}.md5"
         pwd; ls -lah
