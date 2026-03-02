@@ -1,4 +1,4 @@
-name: appimage-release
+name: Create new release
 
 on:
   push:
@@ -65,18 +65,16 @@ jobs:
         tar xf $P_FILENAME -C work_dir/
 
         echo '#!/bin/bash
-        HERE="\$(dirname "\$(readlink -f "\${0}")")"
+        HERE="$(dirname "$(readlink -f "${0}")")"
 
-        #MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
-        MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm"
+        #MAIN="$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
+        MAIN="$HERE/pycharm-${P_VERSION}/bin/pycharm"
 
-        export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
-        "\$MAIN" "\$@" | cat
-        '> work_dir/AppRun
+        export PATH="$HERE/pycharm-${P_VERSION}/bin":$PATH
+        "$MAIN" "$@" | cat' > work_dir/AppRun
         chmod +x work_dir/AppRun
 
         echo '[Desktop Entry]
-        Version=1.0
         Type=Application
         Name=PyCharm
         Icon=pycharm
@@ -84,8 +82,8 @@ jobs:
         Comment=Python IDE for Professional Developers
         Categories=Development;IDE;
         Terminal=false
-        StartupWMClass=jetbrains-pycharm-ce
-        '> work_dir/PyCharm.desktop
+        StartupWMClass=jetbrains-pycharm-ce' > work_dir/PyCharm.desktop
+        chmod +x work_dir/PyCharm.desktop
 
         ls -lah work_dir/pycharm-*/bin/*
         cp work_dir/pycharm-*/bin/pycharm.png work_dir/
