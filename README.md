@@ -3,7 +3,7 @@
 https://www.jetbrains.com/pycharm/
 
 ## Repository: https://github.com/ryuuzaki42/PyCharm_AppImage
-    PyCharm: 2025.3.2
+    PyCharm: 2025.3.3
 
 ---
 Based on: https://github.com/ferion11/PyCharm_Appimage
