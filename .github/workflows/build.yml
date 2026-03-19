@@ -9,10 +9,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Install fuse and libfuse2
       run: sudo apt install fuse libfuse2
@@ -119,8 +120,7 @@ jobs:
         md5sum "$name_prog" > "${name_prog}.md5"
         pwd; ls -lah
 
-    # https://github.com/marketplace/actions/upload-to-github-release
-    - uses: xresloader/upload-to-github-release@main
+    - uses: xresloader/upload-to-github-release@v1
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
