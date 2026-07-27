@@ -70,10 +70,11 @@ jobs:
         export CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
         export XDG_DATA_HOME=$XDG_CONFIG_HOME
 
+        echo "HOME: $HOME"
         echo "XDG_CONFIG_HOME: $XDG_CONFIG_HOME"
+        echo
         echo "XDG_DATA_HOME: $XDG_DATA_HOME"
         echo "CONFIG_HOME: $CONFIG_HOME"
-        echo "HOME: $HOME"
         #---
 
         export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
