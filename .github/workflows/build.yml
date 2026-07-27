@@ -59,12 +59,11 @@ jobs:
         wget -nv $P_URL
         tar xf $P_FILENAME -C work_dir/
 
-        cat > work_dir/AppRun << EOF
-        #!/bin/bash
-        HERE="\$(dirname "\$(readlink -f "\${0}")")"
+        echo '#!/bin/bash
+        HERE="$(dirname "$(readlink -f "${0}")")"
 
-        #MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm.sh"
-        MAIN="\$HERE/pycharm-${P_VERSION}/bin/pycharm"
+        #MAIN="$HERE/pycharm-'${P_VERSION}'/bin/pycharm.sh"
+        MAIN="$HERE/pycharm-'${P_VERSION}'/bin/pycharm"
 
         #--- If use --appimage-portable-config
         export CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
@@ -77,9 +76,8 @@ jobs:
         echo "CONFIG_HOME: $CONFIG_HOME"
         #---
 
-        export PATH="\$HERE/pycharm-${P_VERSION}/bin":\$PATH
-        "\$MAIN" "\$@" | cat
-        EOF
+        export PATH="$HERE/pycharm-'${P_VERSION}'/bin":$PATH
+        "$MAIN" "$@" | cat' > work_dir/AppRun
         chmod +x work_dir/AppRun
 
         echo '[Desktop Entry]
