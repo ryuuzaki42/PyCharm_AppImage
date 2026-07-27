@@ -68,8 +68,11 @@ jobs:
         #--- If use --appimage-portable-config
         export CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
         export XDG_DATA_HOME=$XDG_CONFIG_HOME
+        export PROJECT_HOME=$HOME
 
+        echo
         echo "HOME: $HOME"
+        echo "PROJECT_HOME: $PROJECT_HOME"
         echo "XDG_CONFIG_HOME: $XDG_CONFIG_HOME"
         echo
         echo "XDG_DATA_HOME: $XDG_DATA_HOME"
