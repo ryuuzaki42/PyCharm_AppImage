@@ -47,8 +47,8 @@ jobs:
         version=$(grep -o "PyCharm:.*" README.md | cut -d ' ' -f2)
         echo "PyCharm version: $version"
 
-        tag_version=1
-        name_prog="PyCharm-${version}-${tag_version}_JB-x86_64.AppImage"
+        tag=2
+        name_prog="PyCharm-${version}-${tag}_JB-x86_64.AppImage"
 
         P_URL="https://download-cdn.jetbrains.com/python/pycharm-$version.tar.gz"
         P_FILENAME="$(echo $P_URL | cut -d/ -f5)"
